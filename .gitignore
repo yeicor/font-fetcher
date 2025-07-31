@@ -4,3 +4,4 @@
 /.venv/
 /venv/
 /dist/
+/font_fetcher/__pycache__/
