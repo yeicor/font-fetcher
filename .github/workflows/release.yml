@@ -52,6 +52,12 @@ jobs:
 
       - run: "pip install build && python -m build"
 
+      - uses: "softprops/action-gh-release@v1"
+        with:
+          files: |
+            dist/*.whl
+            dist/*.tar.gz
+
       - uses: "pypa/gh-action-pypi-publish@release/v1"
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
