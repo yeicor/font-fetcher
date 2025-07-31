@@ -34,7 +34,7 @@ from font_fetcher.ocp import install_ocp_font_hook
 install_ocp_font_hook()
 ```
 
-After calling `install_ocp_font_hook()`, fonts will be fetched automatically if they are not available in the system.
+After calling `install_ocp_font_hook()`, fonts will be fetched automatically if they are not already available.
 
 Example for [build123d](https://github.com/gumyr/build123d):
 `Text("Text", 10, font_name="Open Sans", font_style=FontStyle.BOLD)`
@@ -43,5 +43,6 @@ Example for [cadquery](https://github.com/gumyr/build123d): `wp.text("Text", 10,
 
 ⚠️ Not all fonts work with OCP, here is a list of known working and recommended fonts:
 
-- ✍️ [Add your favorite font name and short description here.](https://github.com/yeicor/font-fetcher/fork)
+- ✍️
+  [Add your favorite font name and short description and send a pull request.](https://github.com/yeicor/font-fetcher/fork)
 

@@ -6,8 +6,6 @@ on:
 jobs:
   bump-version:
     runs-on: "ubuntu-latest"
-    outputs:
-      pr-url: "${{ steps.cpr.outputs.pull-request-url }}"
     steps:
       - uses: "actions/checkout@v4"
 
@@ -39,10 +37,6 @@ jobs:
         uses: "peter-evans/create-pull-request@v7"
         with:
           commit-message: "Bump version for release"
-          title: "Bump version for release"
-          body: "Automated version bump for release"
-          branch: "release/version-bump"
-          base: "master"
 
   publish:
     needs: "bump-version"
