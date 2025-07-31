@@ -25,7 +25,7 @@ class Fonts1001Repo(FontRepo):
         fonts = []
         for element in font_elements:
             name = next(element.select_one('.font-title').stripped_strings)  # Also contains other unwanted children
-            if name is "":
+            if name == "":
                 logger.info(f"Skipping empty font name in search results for '{font_name}'")
                 continue
             font = Font(name=name)
