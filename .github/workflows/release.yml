@@ -49,6 +49,10 @@ jobs:
   publish-github:
     needs: "bump-version-and-build"
     runs-on: "ubuntu-latest"
+    permissions:
+      contents: "write"
+      packages: "write"
+      pull-requests: "write"
     steps:
       - uses: "actions/download-artifact@v4"
         with:
