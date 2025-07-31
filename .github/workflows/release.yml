@@ -4,7 +4,7 @@ on:
       - "v*.*.*"
 
 jobs:
-  bump-version:
+  bump-version-and-build:
     runs-on: "ubuntu-latest"
     steps:
       - uses: "actions/checkout@v4"
@@ -15,13 +15,15 @@ jobs:
 
       - run: "sed -i 's/^version = \"[^\"]*\"/version = \"${{ github.ref_name }}\"/' pyproject.toml"
 
+      - run: "pip install build && python -m build"
+
       - uses: "actions/upload-artifact@v4"
         with:
           name: "version-bumped-code"
           path: "."
 
-  pull-request:
-    needs: "bump-version"
+  pull-request-for-bumped-version:
+    needs: "bump-version-and-build"
     runs-on: "ubuntu-latest"
     permissions:
       contents: "write"
@@ -37,8 +39,8 @@ jobs:
           commit-message: "Bump version to ${{ github.ref_name }}"
           base: "master"
 
-  publish:
-    needs: "bump-version"
+  publish-github:
+    needs: "bump-version-and-build"
     runs-on: "ubuntu-latest"
     steps:
       - uses: "actions/checkout@v4"
@@ -46,17 +48,20 @@ jobs:
         with:
           name: "version-bumped-code"
 
-      - uses: "actions/setup-python@v5"
-        with:
-          python-version: "3.12"
-
-      - run: "pip install build && python -m build"
-
       - uses: "softprops/action-gh-release@v1"
         with:
           files: |
             dist/*.whl
             dist/*.tar.gz
+
+  publish-pypi:
+    needs: "bump-version-and-build"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "actions/download-artifact@v4"
+        with:
+          name: "version-bumped-code"
 
       - uses: "pypa/gh-action-pypi-publish@release/v1"
         with:
