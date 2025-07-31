@@ -1,11 +1,22 @@
 import os
+import sys
 from pathlib import Path
 from typing import Optional
 
 from font_fetcher.misc import logger
 from font_fetcher.repo_registry import repo_registry
 
-_CACHE_DIR = Path(os.getenv('FONT_FETCHER_CACHE_DIR', str(Path.home() / ".cache" / "font_fetcher")))
+
+def _get_cache_dir() -> Path:
+    if sys.platform == "win32":
+        return Path(os.getenv("LOCALAPPDATA", Path.home() / "AppData" / "Local")) / "fontfetcher"
+    elif sys.platform == "darwin":
+        return Path.home() / "Library" / "Caches" / "fontfetcher"
+    else:  # Assuming Linux or other Unix-like systems
+        return Path.home() / ".cache" / "fontfetcher"
+
+
+_CACHE_DIR = _get_cache_dir()
 _CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 
