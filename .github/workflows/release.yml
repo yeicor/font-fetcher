@@ -38,9 +38,9 @@ jobs:
         uses: "peter-evans/create-pull-request@v7"
         with:
           token: "${{ secrets.GH_PAT }}"
-          branch: "bump-version/${{ github.ref_name }}"
           base: "master"
-          title: "Bump version to ${{ github.ref_name }}"
+          branch: "bump-version"
+          title: "Bump version"
           commit-message: "Bump version to ${{ github.ref_name }}"
       - run: "gh pr merge '${{ steps.cpr.outputs.pull-request-number }}' --merge --auto --delete-branch"
         env:
