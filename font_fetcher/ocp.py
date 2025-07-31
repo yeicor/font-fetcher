@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional
 
 from font_fetcher import fetch_font_cached
 from font_fetcher.misc import logger
@@ -7,8 +7,10 @@ _original_font_mgr = None
 aspect_to_style: Dict[int, str] = {1: "Bold", 2: "Italic", 3: "Bold Italic"}  # From OCP.Font_FontAspect
 
 
-def install_ocp_font_hook():
+def install_ocp_font_hook(renames: Optional[Dict[str, str]] = None, exact_match: bool = True):
     """Install the OCP.Font_FontMgr patch to auto-download missing fonts."""
+    if renames is None:
+        renames = {'Arial': 'DejaVu Sans'}
     global _original_font_mgr
     if _original_font_mgr is not None:
         logger.info("OCP Font_FontMgr patch already installed. Skipping installation.")
@@ -37,13 +39,16 @@ def install_ocp_font_hook():
             def find_font_short(theFontName: TCollection_AsciiString,
                                 theFontAspect: Font_FontAspect) -> Font_SystemFont:
                 """Find font with the given name and aspect, using strict level."""
-                return FontMgrWrapper.find_font_full(theFontName, Font_StrictLevel.Font_StrictLevel_Strict, theFontAspect, False)
+                return FontMgrWrapper.find_font_full(theFontName, Font_StrictLevel.Font_StrictLevel_Strict,
+                                                     theFontAspect, False)
 
             @staticmethod
             def find_font_full(theFontName: TCollection_AsciiString, _theStrictLevel: Font_StrictLevel,
                                theFontAspect: Font_FontAspect, theDoFailMsg: bool) -> Font_SystemFont:
-                font_name = theFontName.ToCString()
-                logger.debug(f"Trying to find font: {font_name}, kind: {theFontAspect}")
+                font_name_orig = theFontName.ToCString()
+                font_name = renames.get(font_name_orig, font_name_orig)
+                font_name_debug = f"{font_name} (renamed from {font_name_orig})" if font_name != font_name_orig else font_name_orig
+                logger.debug(f"Trying to find font: {font_name_debug}, kind: {theFontAspect}")
                 theStrictLevel = Font_StrictLevel.Font_StrictLevel_Strict  # Disable fallbacks or aliases
                 font_t = _original_font_mgr.FindFont(theFontName, theStrictLevel, theFontAspect, theDoFailMsg)
                 if font_t is None:

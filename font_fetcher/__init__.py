@@ -34,17 +34,18 @@ def fetch_font_cached(font_name: str, style: str = "Regular") -> Optional[Path]:
     return None
 
 
-def fetch_font_remote(font_name: str, style: str = "Regular") -> Path:
+def fetch_font_remote(font_name: str, style: str = "Regular", exact: bool = True) -> Path:
     """"""
     logger.debug(f"Fetching font '{font_name}' with style '{style}'")
     for repo in repo_registry:
         fonts = repo.search_font(font_name)
-        if len(fonts) == 0 or fonts[0].name.lower() != font_name.lower(): # Ensure exact match
+        if len(fonts) == 0 or (exact and fonts[0].name.lower() != font_name.lower()):
             logger.debug(f"Font '{font_name}' not found (exactly) in repository: {repo.__class__.__name__}")
             continue
 
         downloaded = repo.download_font(_CACHE_DIR, fonts[0], style)
-        cached_path = _CACHE_DIR / _cached_basename(fonts[0].name, style, downloaded.suffix.lower())
+        # Cache with user-provided name and style in case they are not exact matches
+        cached_path = _CACHE_DIR / _cached_basename(font_name, style, downloaded.suffix.lower())
         if downloaded != cached_path:
             logger.debug(f"Moving downloaded font from {downloaded} to {cached_path}")
             if cached_path.exists():
