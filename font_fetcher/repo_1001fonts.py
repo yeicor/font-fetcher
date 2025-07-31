@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 from typing import List
 from urllib.parse import urljoin, urlencode
@@ -12,11 +13,14 @@ from font_fetcher.repo_common import download_font_url, sort_fonts_by_name
 
 class Fonts1001Repo(FontRepo):
     """Repository for fetching fonts from 1001fonts.com."""
+
     search_url = "https://www.1001fonts.com/search.html"
+    search_url_prefix = "https://corsproxy.io/?url=" if sys.platform == "emscripten" else ""  # Avoid CORS issues
 
     def search_font(self, font_name: str) -> List[Font]:
         """Search for a font by its name and return a list of Font objects."""
-        url = self.search_url + "?" + urlencode({'search': font_name, 'items': '50'}) # One page is enough
+        url = self.search_url_prefix + self.search_url + "?" + urlencode(
+            {'search': font_name, 'items': '50'})  # One page is enough
         response = requests.get(str(url))
         response.raise_for_status()
 
@@ -40,4 +44,4 @@ class Fonts1001Repo(FontRepo):
     def download_font(self, out_dir: Path, font: Font, style: str = "Regular") -> Path:
         """Download a specific style of the font to the specified output directory."""
         # noinspection PyUnresolvedReferences,PyProtectedMember
-        return download_font_url(out_dir, font, style, font._url)
+        return download_font_url(out_dir, font, style, self.search_url_prefix + font._url)
