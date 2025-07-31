@@ -23,6 +23,9 @@ jobs:
   pull-request:
     needs: "bump-version"
     runs-on: "ubuntu-latest"
+    permissions:
+      contents: "write"
+      pull-requests: "write"
     steps:
       - uses: "actions/checkout@v4"
       - uses: "actions/download-artifact@v4"
@@ -36,7 +39,8 @@ jobs:
       - id: "cpr"
         uses: "peter-evans/create-pull-request@v7"
         with:
-          commit-message: "Bump version for release"
+          commit-message: "Bump version to ${{ github.ref_name }}"
+          base: "master"
 
   publish:
     needs: "bump-version"
