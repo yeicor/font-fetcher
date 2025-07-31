@@ -39,6 +39,7 @@ jobs:
         with:
           commit-message: "Bump version to ${{ github.ref_name }}"
           base: "master"
+      - run: "gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --squash --delete-branch --auto --admin"
 
   publish-github:
     needs: "bump-version-and-build"
