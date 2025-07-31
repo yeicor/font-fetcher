@@ -9,12 +9,12 @@ _CACHE_DIR = Path(os.getenv('FONT_FETCHER_CACHE_DIR', str(Path.home() / ".cache"
 _CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def fetch_font(font_name: str, style: str) -> Path:
+def fetch_font(font_name: str, style: str, exact: bool = True) -> Path:
     """Fetches font from cache or remote if not cached."""
     cached_font = fetch_font_cached(font_name, style)
     if cached_font is not None:
         return cached_font
-    return fetch_font_remote(font_name, style)
+    return fetch_font_remote(font_name, style, exact)
 
 
 def _cached_basename(font_name: str, style: str, ext: str) -> str:
@@ -45,7 +45,7 @@ def fetch_font_remote(font_name: str, style: str = "Regular", exact: bool = True
 
         downloaded = repo.download_font(_CACHE_DIR, fonts[0], style)
         # Cache with user-provided name and style in case they are not exact matches
-        cached_path = _CACHE_DIR / _cached_basename(font_name, style, downloaded.suffix.lower())
+        cached_path = _CACHE_DIR / _cached_basename(font_name, style, downloaded.suffix.lower()[1:])
         if downloaded != cached_path:
             logger.debug(f"Moving downloaded font from {downloaded} to {cached_path}")
             if cached_path.exists():

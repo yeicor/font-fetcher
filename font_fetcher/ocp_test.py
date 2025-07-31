@@ -39,22 +39,24 @@ def test_install_ocp_font_hook():
 
 
 @pytest.mark.skipif(not have_build123d, reason="build123d is not installed")
-def test_build123d_text():
+@pytest.mark.parametrize("font_name", ["Poppins", "Open Sans", "Arial"]) # Arial should be renamed to DejaVu Sans
+def test_build123d(font_name):
     """Test that build123d can create text with a specific font."""
     from build123d import Text
 
     # Without the hook, this would fall back to a any system font
     wires_len = lambda s: sum(wire.length for wire in s.wires())
-    text1 = Text("Hello, World!", 10, font="Poppins", font_style=FontStyle.BOLD)
-    text2 = Text("Hello, World!", 10, font="Poppins", font_style=FontStyle.BOLD)
+    text1 = Text("Hello, World!", 10, font=font_name, font_style=FontStyle.BOLD)
+    text2 = Text("Hello, World!", 10, font=font_name, font_style=FontStyle.BOLD)
     assert wires_len(text1) == wires_len(text2), "Text objects should be equal when created with the same parameters"
     # export_stl(extrude(text1, 1), "test_poppins_before_hook.stl")
 
     install_ocp_font_hook()
 
     # Create text with a specific font
-    text = Text("Hello, World!", 10, font="Poppins", font_style=FontStyle.BOLD)
-    assert wires_len(text) != wires_len(text1), "Text objects should use different fonts after hook installation"
+    text = Text("Hello, World!", 10, font=font_name, font_style=FontStyle.BOLD)
+    if font_name != "Arial": # This font (or DejaVu Sans) is commonly present in the system
+        assert wires_len(text) != wires_len(text1), "Text objects should use different fonts after hook installation"
     # export_stl(extrude(text, 1), "test_poppins.stl")
 
     uninstall_ocp_font_hook()
