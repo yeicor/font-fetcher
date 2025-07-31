@@ -1,0 +1,64 @@
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  bump-version:
+    runs-on: "ubuntu-latest"
+    outputs:
+      pr-url: "${{ steps.cpr.outputs.pull-request-url }}"
+    steps:
+      - uses: "actions/checkout@v4"
+
+      - uses: "actions/setup-python@v5"
+        with:
+          python-version: "3.12"
+
+      - run: "sed -i 's/^version = \"[^\"]*\"/version = \"${{ github.ref_name }}\"/' pyproject.toml"
+
+      - uses: "actions/upload-artifact@v4"
+        with:
+          name: "version-bumped-code"
+          path: "."
+
+  pull-request:
+    needs: "bump-version"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "actions/download-artifact@v4"
+        with:
+          name: "version-bumped-code"
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Bump version to ${{ github.ref_name }}" || echo "No changes to commit"
+      - id: "cpr"
+        uses: "peter-evans/create-pull-request@v7"
+        with:
+          commit-message: "Bump version for release"
+          title: "Bump version for release"
+          body: "Automated version bump for release"
+          branch: "release/version-bump"
+          base: "master"
+
+  publish:
+    needs: "bump-version"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "actions/download-artifact@v4"
+        with:
+          name: "version-bumped-code"
+
+      - uses: "actions/setup-python@v5"
+        with:
+          python-version: "3.12"
+
+      - run: "pip install build && python -m build"
+
+      - uses: "pypa/gh-action-pypi-publish@release/v1"
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}

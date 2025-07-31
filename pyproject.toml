@@ -1,0 +1,29 @@
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[project]
+name = "font-fetcher"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "Yeicor", email = "4929005+Yeicor@users.noreply.github.com" }
+]
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+
+[tool.poetry.group.main.dependencies]
+requests = "^2.32.4"
+beautifulsoup4 = "^4.13.4"
+
+[tool.poetry.group.test]
+optional = true
+[tool.poetry.group.test.dependencies]
+pytest = "^8.4.1"
+build123d = "^0.9.1" # Required for integration tests (incompatible with cadquery)
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+log_cli = true
+log_cli_level = "DEBUG"
