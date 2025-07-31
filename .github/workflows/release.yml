@@ -41,10 +41,10 @@ jobs:
           commit-message: "Bump version to ${{ github.ref_name }}"
           branch: "bump-version/${{ github.ref_name }}"
           base: "master"
-          token: "${{ secrets.GITHUB_PAT }}"
+          token: "${{ secrets.GH_PAT }}"
       - run: "gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --merge --delete-branch"
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_PAT }}"
+          GITHUB_TOKEN: "${{ secrets.GH_PAT }}"
 
   publish-github:
     needs: "bump-version-and-build"
