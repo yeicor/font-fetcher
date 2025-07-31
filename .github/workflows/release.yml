@@ -42,12 +42,15 @@ jobs:
           base: "master"
           title: "Bump version to ${{ github.ref_name }}"
           commit-message: "Bump version to ${{ github.ref_name }}"
+      - run: "gh pr merge '${{ steps.cpr.outputs.pull-request-number }}' --merge --auto --delete-branch"
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
 
   publish-github:
     needs: "bump-version-and-build"
     runs-on: "ubuntu-latest"
     permissions:
-      packages: "write"
+      contents: "write"
     steps:
       - uses: "actions/download-artifact@v4"
         with:
