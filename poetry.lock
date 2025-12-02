@@ -1386,14 +1386,14 @@ files = [
 
 [[package]]
 name = "svgpathtools"
-version = "1.7.1"
+version = "1.7.2"
 description = "A collection of tools for manipulating and analyzing SVG Path objects and Bezier curves."
 optional = false
 python-versions = ">=3.8"
 groups = ["test"]
 files = [
-    {file = "svgpathtools-1.7.1-py2.py3-none-any.whl", hash = "sha256:3cbb8ba0e8d200f9639034608d9c55b68efbc1bef99ea99559a3e7cb024fb738"},
-    {file = "svgpathtools-1.7.1.tar.gz", hash = "sha256:beaef20fd78164aa5f0a7d4fd164ef20cb0d3d015cdec50c8c168e9d6547f041"},
+    {file = "svgpathtools-1.7.2-py2.py3-none-any.whl", hash = "sha256:ecb1885f7c6363be2903f39d8584ed772bd055a2e92044f43d412780b1d4c283"},
+    {file = "svgpathtools-1.7.2.tar.gz", hash = "sha256:5974daba24825e22f284ea10aa980d7d6f77a1ca55d914d80283e3ea8a7ac450"},
 ]
 
 [package.dependencies]
