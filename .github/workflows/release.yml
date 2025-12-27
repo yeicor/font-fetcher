@@ -35,7 +35,7 @@ jobs:
           name: "version-bumped-code-and-build"
 
       - id: "cpr"
-        uses: "peter-evans/create-pull-request@v7"
+        uses: "peter-evans/create-pull-request@v8"
         with:
           token: "${{ secrets.GH_PAT }}"
           base: "master"
