@@ -20,7 +20,7 @@ class Fonts1001Repo(FontRepo):
     def search_font(self, font_name: str) -> List[Font]:
         """Search for a font by its name and return a list of Font objects."""
         url = self.search_url_prefix + self.search_url + "?" + urlencode(
-            {'search': font_name, 'items': '50'})  # One page is enough
+            {'search': font_name})  # One page is enough
         response = requests.get(str(url))
         response.raise_for_status()
 
