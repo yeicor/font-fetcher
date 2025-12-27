@@ -15,7 +15,7 @@ class Fonts1001Repo(FontRepo):
     """Repository for fetching fonts from 1001fonts.com."""
 
     search_url = "https://www.1001fonts.com/search.html"
-    search_url_prefix = "https://corsproxy.io/?url=" if sys.platform == "emscripten" else ""  # Avoid CORS issues
+    search_url_prefix = "https://little-hill-4bc4.yeicor-cloudflare.workers.dev/?url=" if sys.platform == "emscripten" else ""  # Avoid CORS issues
 
     def search_font(self, font_name: str) -> List[Font]:
         """Search for a font by its name and return a list of Font objects."""
