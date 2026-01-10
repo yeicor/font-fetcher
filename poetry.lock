@@ -116,6 +116,17 @@ files = [
 vtk = "9.3.1"
 
 [[package]]
+name = "cadquery-ocp-proxy"
+version = "7.9.3.0"
+description = "Proxy package to track cadquery_ocp / cadquery_ocp_novtk version"
+optional = false
+python-versions = ">=3.10"
+groups = ["test"]
+files = [
+    {file = "cadquery_ocp_proxy-7.9.3.0-py3-none-any.whl", hash = "sha256:6563d74dcd23065f094982e514e7b44afebeda5c9dc1ea2f8a56b441561d45a2"},
+]
+
+[[package]]
 name = "certifi"
 version = "2026.1.4"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -923,24 +934,24 @@ files = [
 
 [[package]]
 name = "ocp-gordon"
-version = "0.1.18"
+version = "0.2.0"
 description = "A Python library for Gordon Surface interpolation using B-splines."
 optional = false
-python-versions = "<3.14,>=3.10"
+python-versions = "<3.15,>=3.10"
 groups = ["test"]
 files = [
-    {file = "ocp_gordon-0.1.18-py3-none-any.whl", hash = "sha256:be85a54a682eb7d9377a345ee25b51a23dbabd74e85fc29dc02eee9e1b3c1f05"},
-    {file = "ocp_gordon-0.1.18.tar.gz", hash = "sha256:ea7f7414d31f910a79570f9218fe001cfac7dfa20b34799406a420c679dee6bb"},
+    {file = "ocp_gordon-0.2.0-py3-none-any.whl", hash = "sha256:d7661a254990c7fe3be4e3bebf71bbdb22c0893ca441e95373f7507d56131fb1"},
+    {file = "ocp_gordon-0.2.0.tar.gz", hash = "sha256:3ce1f1fb589e891534d0c1fd7553a518733336308837c4b5e5164d77df1cf5c9"},
 ]
 
 [package.dependencies]
-cadquery-ocp = ">=7.8,<7.9"
+cadquery_ocp_proxy = ">=7.9,<8.0"
 numpy = ">=2,<3"
 scipy = "*"
 
 [package.extras]
-stubs = ["cadquery-ocp-stubs (>=7.8,<7.9)"]
-test = ["pytest"]
+stubs = ["cadquery-ocp-stubs (>=7.9,<8.0)"]
+test = ["cadquery_ocp_novtk (>=7.9,<8.0)", "pytest"]
 
 [[package]]
 name = "ocpsvg"
