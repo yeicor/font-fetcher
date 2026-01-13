@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "font-fetcher"
-version = "v0.0.5"
+version = "0.0.5"
 description = ""
 authors = [
     { name = "Yeicor", email = "4929005+Yeicor@users.noreply.github.com" }
