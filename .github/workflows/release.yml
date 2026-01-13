@@ -13,7 +13,10 @@ jobs:
         with:
           python-version: "3.14"
 
-      - run: "sed -i 's/^version = \"[^\"]*\"/version = \"${{ github.ref_name }}\"/' pyproject.toml"
+      - run: |
+          VERSION="${{ github.ref_name }}"
+          VERSION="${VERSION#v}"
+          sed -i "s/^version = \"[^\"]*\"/version = \"$VERSION\"/" pyproject.toml
 
       - run: "pip install build && python -m build"
 
