@@ -29,7 +29,7 @@ def install_ocp_font_hook(
     global _wrapper_instance
 
     if renames is None:
-        renames = {"Arial": "DejaVu Sans"}
+        renames = {"Arial": "DejaVu Sans", "build123d": "DejaVu Sans"}
 
     with _font_hook_lock:
         if _original_font_mgr is not None:
