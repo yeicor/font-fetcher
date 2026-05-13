@@ -13,6 +13,8 @@ from font_fetcher.repo import Font
 def sort_fonts_by_name(wanted_name: str, font_list: list[Font]) -> list[Font]:
     """Sorts a list of Font objects by their name, prioritizing those that match the wanted name (some repos
     sort by popularity making matching names appear further down the list)."""
+    if not font_list:
+        return []
     font_to_name = {font.name.lower(): font for font in font_list}
     wanted_name = wanted_name.lower()
     # Sort by exact match first, then by close matches
