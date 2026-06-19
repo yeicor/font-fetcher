@@ -11,7 +11,7 @@ authors = [
     { name = "Yeicor", email = "4929005+Yeicor@users.noreply.github.com" }
 ]
 readme = "README.md"
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.10"
 dependencies = [
     "requests>=2.32.4,<3.0.0",
     "beautifulsoup4>=4.13.4,<5.0.0"
@@ -21,7 +21,7 @@ dependencies = [
 optional = true
 [tool.poetry.group.test.dependencies]
 pytest = "^9.0.0"
-build123d = "^0.10.0" # Required for integration tests (incompatible with cadquery)
+build123d = "^0.11.0" # Required for integration tests (incompatible with cadquery)
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
