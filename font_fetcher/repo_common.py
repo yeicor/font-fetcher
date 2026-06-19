@@ -9,6 +9,10 @@ import requests
 from font_fetcher.misc import logger
 from font_fetcher.repo import Font
 
+_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+}
+
 
 def sort_fonts_by_name(wanted_name: str, font_list: list[Font]) -> list[Font]:
     """Sorts a list of Font objects by their name, prioritizing those that match the wanted name (some repos
@@ -29,7 +33,7 @@ def download_font_url(out_dir: Path, font: Font, style: str, url: str) -> Path:
     this function can be used to download and extract the font file from the URL."""
     # Download compressed file to a temporary location
     tmp_dir = tempfile.TemporaryDirectory()
-    response = requests.get(url)
+    response = requests.get(url, headers=_HEADERS)
     if response.status_code != 200:
         raise ConnectionError(f"Failed to download font '{font.name}': {response.status_code}")
     mime = response.headers["Content-Type"]

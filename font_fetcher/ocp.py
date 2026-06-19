@@ -2,6 +2,8 @@ from pathlib import Path
 from threading import Lock
 from typing import Dict, Optional
 
+import requests
+
 from font_fetcher import fetch_font_cached
 from font_fetcher.misc import logger
 
@@ -146,7 +148,7 @@ def install_ocp_font_hook(
                                 style,
                                 exact_match,
                             )
-                        except FileNotFoundError:
+                        except (FileNotFoundError, requests.exceptions.RequestException):
                             logger.warning(
                                 f"Could not fetch font '{font_name}' "
                                 f"style '{style}'"
