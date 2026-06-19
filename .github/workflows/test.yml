@@ -13,10 +13,9 @@ jobs:
     steps:
       - uses: "actions/checkout@v6"
 
-      - run: "pipx install poetry"
       - uses: "actions/setup-python@v6"
         with:
           python-version: "3.14"
 
-      - run: "poetry install --all-groups"
-      - run: "poetry run pytest"
+      - run: "pip install uv && uv sync --all-groups"
+      - run: "uv run pytest"
