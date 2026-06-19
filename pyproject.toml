@@ -1,6 +1,6 @@
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 
 [project]
@@ -11,17 +11,17 @@ authors = [
     { name = "Yeicor", email = "4929005+Yeicor@users.noreply.github.com" }
 ]
 readme = "README.md"
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.10"
 dependencies = [
     "requests>=2.32.4,<3.0.0",
     "beautifulsoup4>=4.13.4,<5.0.0"
 ]
 
-[tool.poetry.group.test]
-optional = true
-[tool.poetry.group.test.dependencies]
-pytest = "^9.0.0"
-build123d = "^0.10.0" # Required for integration tests (incompatible with cadquery)
+[dependency-groups]
+test = [
+    "pytest>=9.0.0",
+    "build123d>=0.11.0",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

@@ -28,11 +28,11 @@ def test_install_ocp_font_hook():
     assert first_font is None, "Poppins should not be found before installing the hook"
 
     install_ocp_font_hook()
-
-    assert do_test_font("Poppins") is not None, "Poppins should be found after installing the hook"
-    assert do_test_font("Poppins") is not None, "Poppins should be found after installing the hook (cached)"
-
-    uninstall_ocp_font_hook()
+    try:
+        assert do_test_font("Poppins") is not None, "Poppins should be found after installing the hook"
+        assert do_test_font("Poppins") is not None, "Poppins should be found after installing the hook (cached)"
+    finally:
+        uninstall_ocp_font_hook()
 
     last_font = do_test_font("Poppins")
     assert last_font is None, "Poppins should not be found after uninstalling the hook"
@@ -52,14 +52,14 @@ def test_build123d(font_name):
     # export_stl(extrude(text1, 1), "test_poppins_before_hook.stl")
 
     install_ocp_font_hook()
-
-    # Create text with a specific font
-    text = Text("Hello, World!", 10, font=font_name, font_style=FontStyle.BOLD)
-    if font_name != "Arial": # This font (or DejaVu Sans) is commonly present in the system
-        assert wires_len(text) != wires_len(text1), "Text objects should use different fonts after hook installation"
-    # export_stl(extrude(text, 1), "test_poppins.stl")
-
-    uninstall_ocp_font_hook()
+    try:
+        # Create text with a specific font
+        text = Text("Hello, World!", 10, font=font_name, font_style=FontStyle.BOLD)
+        if font_name != "Arial": # This font (or DejaVu Sans) is commonly present in the system
+            assert wires_len(text) != wires_len(text1), "Text objects should use different fonts after hook installation"
+        # export_stl(extrude(text, 1), "test_poppins.stl")
+    finally:
+        uninstall_ocp_font_hook()
 
 
 def do_test_font(font_name: str) -> Optional[Font_SystemFont]:

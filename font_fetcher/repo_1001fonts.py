@@ -1,4 +1,3 @@
-import sys
 from pathlib import Path
 from typing import List
 from urllib.parse import urljoin, urlencode
@@ -8,20 +7,20 @@ from bs4 import BeautifulSoup
 
 from font_fetcher.misc import logger
 from font_fetcher.repo import FontRepo, Font
-from font_fetcher.repo_common import download_font_url, sort_fonts_by_name
+from font_fetcher.repo_common import _HEADERS, download_font_url, sort_fonts_by_name
 
 
 class Fonts1001Repo(FontRepo):
     """Repository for fetching fonts from 1001fonts.com."""
 
     search_url = "https://www.1001fonts.com/search.html"
-    search_url_prefix = "https://little-hill-4bc4.yeicor-cloudflare.workers.dev/?url=" if sys.platform == "emscripten" else ""  # Avoid CORS issues
+    search_url_prefix = "https://little-hill-4bc4.yeicor-cloudflare.workers.dev/?url="
 
     def search_font(self, font_name: str) -> List[Font]:
         """Search for a font by its name and return a list of Font objects."""
         url = self.search_url_prefix + self.search_url + "?" + urlencode(
             {'search': font_name})  # One page is enough
-        response = requests.get(str(url))
+        response = requests.get(str(url), headers=_HEADERS)
         response.raise_for_status()
 
         soup = BeautifulSoup(response.text, 'html.parser')
