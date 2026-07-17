@@ -729,7 +729,7 @@ wheels = [
 
 [[package]]
 name = "ocp-gordon"
-version = "0.2.1"
+version = "0.2.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cadquery-ocp-proxy" },
@@ -740,9 +740,9 @@ dependencies = [
     { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
     { name = "scipy", version = "1.18.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/df/f7/2c7062c36cdc499ffdf97dabf276267b85cf557c717cff99b95c20890221/ocp_gordon-0.2.1.tar.gz", hash = "sha256:4a97375b343137de05ee894cb15242bc15a5d67f859c6ce126b4cfa5d232b395", size = 119570, upload-time = "2026-07-15T23:34:04.463Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/87/b4/01487c528cdaef6c4b795f633bece21de465d589a6852474df7ea05066b9/ocp_gordon-0.2.2.tar.gz", hash = "sha256:403c2628a8de9b694f18ecd2d98c1956d3aaf7c869f72e3556575d33d8df03f1", size = 119492, upload-time = "2026-07-16T02:33:00.555Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f9/10/8dc8c579992b2db216217dc2ab49bef7ce1c260977d78d3407311ba4c7dc/ocp_gordon-0.2.1-py3-none-any.whl", hash = "sha256:eeebc129de52bdb8456ee1e622629c4cc5fa82daef1b2617afcdcc8154e4299a", size = 54069, upload-time = "2026-07-15T23:34:02.982Z" },
+    { url = "https://files.pythonhosted.org/packages/6c/d1/ee535cdbc502790dda6555e439ea8bcacdd38325859151769d109d307a94/ocp_gordon-0.2.2-py3-none-any.whl", hash = "sha256:6414e901a11065a56e839c81b56f418100b4d0b81eb5aa23bb1f8f72f97ff099", size = 54077, upload-time = "2026-07-16T02:32:59.017Z" },
 ]
 
 [[package]]
