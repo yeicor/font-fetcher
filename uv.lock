@@ -28,15 +28,15 @@ wheels = [
 
 [[package]]
 name = "bd-materials"
-version = "0.2.5"
+version = "0.2.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "threejs-materials" },
     { name = "webcolors" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/11/34/913df28847b497acadb5c6fb07c459b4cc5a13fd6997ed4d5efbaa4bacb2/bd_materials-0.2.5.tar.gz", hash = "sha256:da08680efe34d582b72dde78d7f375705bf0f1258829bab83118ac0b24d88a11", size = 94645, upload-time = "2026-10-23T14:07:44.555Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/2f/c0bc4a4d17eff5fd3834289b2d32a7020b07c04c1895c14d6733b0cf1b74/bd_materials-0.2.6.tar.gz", hash = "sha256:150eefb474b0a9a4496839a84d5548153aca998c254a1ce3da28ebe22112ef5e", size = 94686, upload-time = "2026-11-13T16:55:53.249Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2a/61/4f22974be46a3d16b11422db01422eddd020e52ee7ab42902add3f8c9c0a/bd_materials-0.2.5-py3-none-any.whl", hash = "sha256:a08fa367c460ed7bfedaf8bdf57c91d93ef87dd5e3b66dc5e4a6771668d168e0", size = 79126, upload-time = "2026-10-23T14:07:43.319Z" },
+    { url = "https://files.pythonhosted.org/packages/18/61/118b3c58f74724b6d11b86a53d63eefbe988747d3291d763d99652263f11/bd_materials-0.2.6-py3-none-any.whl", hash = "sha256:1eee8785e0b767dcba39714be32694bc570cef0cd77888063525e207a8012d1a", size = 79140, upload-time = "2026-11-13T16:55:51.655Z" },
 ]
 
 [[package]]
